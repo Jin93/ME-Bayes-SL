@@ -113,7 +113,7 @@ print(paste0('Complete'))
 
 
 
-# ---------------------- LDpred2 scores ----------------------
+# ---------------------- Calculate cross-population PRS ----------------------
 maindir = '/dcs04/nilanjan/data/jjin/'
 traits = c('HDL','LDL','TC','logTG')
 races = c('EUR','AFR','AMR','EAS','SAS')
@@ -159,7 +159,6 @@ for (trait in traits){
           rownames(bim) = bim[,2]; colnames(bim) = c('chr','rsid','NA','pos','a0','a1')
           rsid = intersect(bim[,2], beta$rsid)
           beta = beta[rsid,]; bim = bim[rsid,]
-          #matched = which((beta$a0 == bim$a0)&(beta$a1 == bim$a1)); 
           flipped = which((beta$a1 == bim$a0)&(beta$a0 == bim$a1));
           beta[flipped,c(3:ncol(beta))] = - beta[flipped,c(3:ncol(beta))];
           te = beta$a0; beta$a0[flipped] = beta$a1[flipped]; beta$a1[flipped] = te[flipped]; rm(te)
@@ -370,7 +369,7 @@ for (trait in traits){
   }
 }
 ####### -------------------------------  tuned parameter:
-save(R2, Out, Indx, file=paste0("/dcs04/nilanjan/data/jjin/prs/realdata/glgc/r2-notopsnp/summary-ldpred2.RData"))
+save(R2, Out, Indx, file=paste0("/dcs04/nilanjan/data/jjin/prs/realdata/glgc/r2/summary-ldpred2.RData"))
 
 
 
